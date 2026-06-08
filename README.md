@@ -19,7 +19,7 @@ To set up the CI/CD pipeline in your environment, follow these steps:
 
 1. **Clone Repository**: Clone this repository to your local machine using the following command:
    ```
-   git clone https://github.com/HGSChandeepa/GitHub-Docker-and-Jenkins-CI-CD-Pipeline
+   git clone https://github.com/kavishkaRash/github-docker-and-genkins-ci-cd-pipeline.git
    ```
 2. **Configure Jenkins**: Set up Jenkins on your server and configure it to monitor the GitHub repository for changes. Install necessary plugins like Docker Pipeline Plugin.
 3. **Set Up DockerHub**: Ensure you have an account on DockerHub where Jenkins can push Docker images. 
