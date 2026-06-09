@@ -5,33 +5,35 @@ pipeline {
         stage('SCM Checkout') {
             steps {
                 retry(3) {
-                    git branch: 'main', url: 'https://github.com/HGSChandeepa/test-node'
+                    git branch: 'main', url: 'https://github.com/kavishkaRash/github-docker-and-genkins-ci-cd-pipeline'
                 }
             }
         }
+
         stage('Build Docker Image') {
             steps {  
-                bat 'docker build -t adomicarts/nodeapp-cuban:%BUILD_NUMBER% .'
+                sh "docker build -t rushferz/my-nodejs-app:v1.0.${BUILD_NUMBER} ."
             }
         }
+
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'samin-docker', variable: 'samindocker')]) {
-                    script {
-                        bat "docker login -u adomicarts -p %samindocker%"
-                    }
+                withCredentials([string(credentialsId: 'dockerHub-password', variable: 'dockerHubPass')]) {
+                    sh "docker login -u rushferz -p ${dockerHubPass}"
                 }
             }
         }
+
         stage('Push Image') {
             steps {
-                bat 'docker push adomicarts/nodeapp-cuban:%BUILD_NUMBER%'
+                sh "docker push rushferz/my-nodejs-app:v1.0.${BUILD_NUMBER}"
             }
         }
     }
+
     post {
         always {
-            bat 'docker logout'
+            sh 'docker logout'
         }
     }
 }
